@@ -23,22 +23,18 @@ public class SliderBar extends StackPane {
     @FXML
     private ProgressBar progressBar;
 
-
-    public SliderBar() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/fxml/sliderBar.fxml"));
+    public SliderBar() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sliderBar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        fxmlLoader.load();
         getStylesheets().add(getClass().getResource("/style/sliderbar.css").toExternalForm());
         bindValues();
     }
 
+    /**
+     * 绑定值
+     */
     private void bindValues() {
         progressBar.prefWidthProperty().bind(slider.widthProperty());
         progressBar.progressProperty().bind(slider.valueProperty().divide(100));

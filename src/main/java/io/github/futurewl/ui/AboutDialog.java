@@ -27,7 +27,9 @@ import java.net.URISyntaxException;
 public class AboutDialog {
 
     private final Stage stage = new Stage();
+
     private final Button closeButton = new Button();
+
     private final Hyperlink link = new Hyperlink();
 
     public AboutDialog(Stage primaryStage) {
@@ -40,6 +42,11 @@ public class AboutDialog {
         stage.show();
     }
 
+    /**
+     * 准备舞台
+     *
+     * @param primaryStage
+     */
     private void prepareStage(Stage primaryStage) {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.WINDOW_MODAL);
@@ -58,25 +65,20 @@ public class AboutDialog {
         name.setId("header1");
         Label version = new Label(PropertiesUtils.readDetails().get("version"));
         version.setId("version");
-        link.setText("Click here to visit us");
+        link.setText("点击链接联系我们");
         link.setId("link");
         stageBox.getChildren().addAll(closeBox, name, version, link);
         Scene scene = new Scene(stageBox, 400, 150);
-        scene.getStylesheets().add(
-                getClass().getResource(
-                        "/style/MediaPlayer.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/style/MediaPlayer.css").toExternalForm());
         return scene;
     }
 
     private void addListeners() {
         closeButton.setOnAction((e) -> stage.close());
-
         link.setOnAction((e) -> {
             try {
                 Desktop.getDesktop().browse(new URI(PropertiesUtils.readDetails().get("link")));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (URISyntaxException e1) {
+            } catch (IOException | URISyntaxException e1) {
                 e1.printStackTrace();
             }
         });

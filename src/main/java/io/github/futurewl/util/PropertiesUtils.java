@@ -9,8 +9,13 @@ import java.util.*;
  * @author weilai create by 2018/11/13:2:13 PM
  * @version 1.0
  */
-public class PropertiesUtils {
+public final class PropertiesUtils {
 
+    /**
+     * 阅读细节
+     *
+     * @return
+     */
     public static Map<String, String> readDetails() {
         Map<String, String> map = new HashMap<>();
         try {
@@ -26,6 +31,11 @@ public class PropertiesUtils {
         return map;
     }
 
+    /**
+     * 阅读格式
+     *
+     * @return
+     */
     public static List<String> readFormats() {
         List<String> formats = null;
         try {

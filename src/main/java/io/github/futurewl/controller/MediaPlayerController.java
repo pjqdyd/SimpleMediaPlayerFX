@@ -48,7 +48,11 @@ import java.util.ResourceBundle;
 public class MediaPlayerController implements Initializable {
 
     @FXML
-    private Button play;
+    private Button play; // 播放按钮
+    @FXML
+    private Button stop; // 停止按钮
+    @FXML
+    private Button playlist; // 播放列表按钮
 
     @FXML
     private ToggleButton volume;
@@ -57,28 +61,22 @@ public class MediaPlayerController implements Initializable {
     private ToggleGroup group;
 
     @FXML
-    private MenuBar menuBar;
+    private MenuBar menuBar; // 菜单栏
 
     @FXML
-    private Button stop;
+    private Label playTime; // 播放时间
 
     @FXML
-    private Button playlist;
+    private SliderBar timeSlider; // 实现滑动条
 
     @FXML
-    private Label playTime;
-
-    @FXML
-    private SliderBar timeSlider;
-
-    @FXML
-    private SliderBar volumeSlider;
+    private SliderBar volumeSlider; // 声音滑动条
 
     @FXML
     private HBox mediaControl;
 
     @FXML
-    private MediaView mediaView;
+    private MediaView mediaView; // 媒体视图
 
     @FXML
     private BorderPane root;

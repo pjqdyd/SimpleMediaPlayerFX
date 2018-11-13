@@ -30,13 +30,13 @@ import java.util.ResourceBundle;
 public class PlayListController implements Initializable {
 
     @FXML
-    private Button add;
+    private Button add; // 添加按钮
 
     @FXML
-    private Button delete;
+    private Button delete; // 删除按钮
 
     @FXML
-    private ListView playList;
+    private ListView playList; // 播放列表
 
     private ObservableList playListFiles = FXCollections.observableArrayList();
     private ObjectProperty<Path> selectedMedia = new SimpleObjectProperty<>();
@@ -56,9 +56,7 @@ public class PlayListController implements Initializable {
     @FXML
     public void add(ActionEvent event) {
         FileChooser chooser = new FileChooser();
-        chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Files",
-                        PropertiesUtils.readFormats()));
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("文件选择", PropertiesUtils.readFormats()));
         List<Path> listOfFiles;
         listOfFiles = FileUtils.convertListFileToListPath(chooser.showOpenMultipleDialog(((Button) event.getSource()).getScene().getWindow()));
         if (listOfFiles != null) {

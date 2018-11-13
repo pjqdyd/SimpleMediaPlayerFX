@@ -7,17 +7,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.MediaView?>
+
 <BorderPane fx:id="root" prefHeight="-1.0" prefWidth="-1.0" stylesheets="@../style/MediaPlayer.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="io.github.futurewl.controller.MediaPlayerController">
     <top>
         <MenuBar fx:id="menuBar" prefHeight="25.0">
-            <Menu mnemonicParsing="false" text="File">
-                <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open"/>
-                <MenuItem mnemonicParsing="false" onAction="#exitPlayer" text="Close"/>
+            <Menu mnemonicParsing="false" text="文件">
+                <MenuItem mnemonicParsing="false" onAction="#openFile" text="打开文件"/>
+                <MenuItem mnemonicParsing="false" onAction="#exitPlayer" text="关闭"/>
             </Menu>
-            <Menu mnemonicParsing="false" text="About">
-                <MenuItem mnemonicParsing="false" onAction="#about" text="About"/>
+            <Menu mnemonicParsing="false" text="帮助">
+                <MenuItem mnemonicParsing="false" onAction="#about" text="关于"/>
             </Menu>
         </MenuBar>
     </top>
