@@ -69,7 +69,7 @@ public class AboutDialog {
         link.setId("link");
         stageBox.getChildren().addAll(closeBox, name, version, link);
         Scene scene = new Scene(stageBox, 400, 150);
-        scene.getStylesheets().add(getClass().getResource("/style/MediaPlayer.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/style/media_player.css").toExternalForm());
         return scene;
     }
 

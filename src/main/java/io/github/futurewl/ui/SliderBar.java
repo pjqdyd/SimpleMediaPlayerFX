@@ -24,11 +24,11 @@ public class SliderBar extends StackPane {
     private ProgressBar progressBar;
 
     public SliderBar() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sliderBar.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/slider_bar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
-        getStylesheets().add(getClass().getResource("/style/sliderbar.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("/style/slider_bar.css").toExternalForm());
         bindValues();
     }
 

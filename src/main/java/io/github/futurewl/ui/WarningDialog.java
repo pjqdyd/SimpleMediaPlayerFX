@@ -37,7 +37,7 @@ public class WarningDialog {
         box.getChildren().addAll(label, button);
         final Scene scene = new Scene(box);
         scene.getStylesheets()
-                .add(getClass().getResource("/style/modal-dialog.css")
+                .add(getClass().getResource("/style/modal_dialog.css")
                         .toExternalForm());
         dialog.setScene(scene);
     }

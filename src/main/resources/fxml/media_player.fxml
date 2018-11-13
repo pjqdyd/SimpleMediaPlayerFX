@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.MediaView?>
 
-<BorderPane fx:id="root" stylesheets="@../style/MediaPlayer.css" xmlns="http://javafx.com/javafx/8"
+<BorderPane fx:id="root" stylesheets="@../style/media_player.css" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.futurewl.controller.MediaPlayerController">
 
     <top>

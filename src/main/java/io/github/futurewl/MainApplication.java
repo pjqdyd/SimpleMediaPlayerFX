@@ -30,12 +30,12 @@ public class MainApplication extends Application implements CommandLineRunner {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mediaPlayer.fxml")); // 加载 媒体播放器
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/media_player.fxml")); // 加载 媒体播放器
         BorderPane pane = loader.load();
         Scene scene = new Scene(pane, 650, 400);
         primaryStage.setScene(scene);
         MediaPlayerController controller = loader.getController();
-        FXMLLoader playListLoader = new FXMLLoader(getClass().getResource("/fxml/playList.fxml")); // 加载 播放列表
+        FXMLLoader playListLoader = new FXMLLoader(getClass().getResource("/fxml/play_list.fxml")); // 加载 播放列表
         playListLoader.load();
         controller.injectPlayListController(playListLoader.getController()); // 注入播放列表控制器
         controller.injectPlayListRoot(playListLoader.getRoot()); // 注入播放列表根
