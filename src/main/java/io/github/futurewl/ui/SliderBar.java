@@ -26,7 +26,7 @@ public class SliderBar extends StackPane {
 
     public SliderBar() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/fxml/sliderbar.fxml"));
+                "/fxml/sliderBar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
