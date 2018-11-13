@@ -73,13 +73,13 @@ public class MediaPlayerController implements Initializable {
     private SliderBar volumeSlider; // 声音滑动条
 
     @FXML
-    private HBox mediaControl;
+    private HBox mediaControl; // 媒体控制区
 
     @FXML
     private MediaView mediaView; // 媒体视图
 
     @FXML
-    private BorderPane root;
+    private BorderPane root; // 边境围栏
 
     private Stage stage; // 舞台
     private ObservableList playListFiles = FXCollections.observableArrayList();
