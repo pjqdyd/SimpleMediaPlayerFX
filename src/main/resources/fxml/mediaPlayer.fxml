@@ -5,8 +5,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.MediaView?>
+
 <BorderPane fx:id="root" stylesheets="@../style/MediaPlayer.css" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.futurewl.controller.MediaPlayerController">
+
     <top>
         <MenuBar fx:id="menuBar" prefHeight="25.0">
             <Menu mnemonicParsing="false" text="文件">
@@ -18,9 +20,11 @@
             </Menu>
         </MenuBar>
     </top>
+
     <center>
         <MediaView fx:id="mediaView" fitHeight="300.0" fitWidth="600.0" BorderPane.alignment="CENTER"/>
     </center>
+
     <bottom>
         <HBox id="control-bar" fx:id="mediaControl" prefHeight="50.0" prefWidth="500.0" spacing="5.0"
               style="-fx-background-color: #3E3E3E;" BorderPane.alignment="CENTER_LEFT">
@@ -54,4 +58,5 @@
             </SliderBar>
         </HBox>
     </bottom>
+
 </BorderPane>

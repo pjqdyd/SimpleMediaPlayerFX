@@ -24,7 +24,7 @@ public class MainApplication extends Application implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         launch(args);
     }
 
@@ -37,14 +37,14 @@ public class MainApplication extends Application implements CommandLineRunner {
         MediaPlayerController controller = loader.getController();
         FXMLLoader playListLoader = new FXMLLoader(getClass().getResource("/fxml/playList.fxml")); // 加载 播放列表
         playListLoader.load();
-        controller.injectPlayListController(playListLoader.getController());
-        controller.injectPlayListRoot(playListLoader.getRoot());
-        controller.bindSize(scene);
-        controller.setStage(primaryStage);
+        controller.injectPlayListController(playListLoader.getController()); // 注入播放列表控制器
+        controller.injectPlayListRoot(playListLoader.getRoot()); // 注入播放列表根
+        controller.bindSize(scene); // 绑定边框跟随
+        controller.setStage(primaryStage);// 设置主场景
         controller.applyDragAndDropFeatures(scene); // 应用拖放功能
-        primaryStage.setTitle("简易媒体播放器");
+        primaryStage.setTitle("简易媒体播放器"); // 设置界面标题
         primaryStage.setOnCloseRequest(event -> System.exit(0));// 关闭界面后关闭子线程
-        primaryStage.show();
+        primaryStage.show(); // 展示界面
     }
 
 }
