@@ -1,4 +1,4 @@
-MediaPlayerFX
+简易媒体播放器
 =============
 
 A simple media player in JavaFX. It has the following features:
@@ -9,17 +9,11 @@ A simple media player in JavaFX. It has the following features:
 4. An interactive time-slider and volume slider control.
 5. Currently supports just one theme.
 
-How to use the Project
+如何使用此项目
 ----------------------
 
-You can clone the repository and execute the following commands:
+你可以克隆本仓库然后执行以下命令：
 
-**_Gradle_**
-
-To Run
-                    
-    $ gradlew run
-    
 **_Maven_**
  
 To Run
