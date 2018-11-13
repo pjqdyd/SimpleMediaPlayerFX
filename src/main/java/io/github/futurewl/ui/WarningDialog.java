@@ -18,6 +18,10 @@ import javafx.stage.StageStyle;
 public class WarningDialog {
 
     private final Stage dialog = new Stage(StageStyle.TRANSPARENT);
+    private final VBox box = new VBox(10);
+    private final Label label = new Label("Please use a supported type !");
+    private final Button button = new Button("OK");
+    private final Scene scene = new Scene(box);
 
     public WarningDialog(final Stage primaryStage) {
         dialog.initOwner(primaryStage);
@@ -26,19 +30,13 @@ public class WarningDialog {
 
     private void createDialog() {
         dialog.initModality(Modality.WINDOW_MODAL);
-        final VBox box = new VBox(10);
         box.setAlignment(Pos.CENTER);
-        final Label label = new Label("Please use a supported type !");
-        final Button button = new Button("OK");
         button.setOnAction((e) -> {
             dialog.getOwner().getScene().getRoot().setEffect(null);
             dialog.close();
         });
         box.getChildren().addAll(label, button);
-        final Scene scene = new Scene(box);
-        scene.getStylesheets()
-                .add(getClass().getResource("/style/modal_dialog.css")
-                        .toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/style/modal_dialog.css").toExternalForm());
         dialog.setScene(scene);
     }
 

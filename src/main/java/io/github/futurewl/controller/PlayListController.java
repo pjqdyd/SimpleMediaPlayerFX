@@ -60,9 +60,9 @@ public class PlayListController implements Initializable {
         List<Path> listOfFiles;
         listOfFiles = FileUtils.convertListFileToListPath(chooser.showOpenMultipleDialog(((Button) event.getSource()).getScene().getWindow()));
         if (listOfFiles != null) {
-            listOfFiles.stream().forEach(System.out::println);
-            listOfFiles.stream().forEach(playListFiles::add);
-            playListFiles.stream().forEach(System.out::println);
+            listOfFiles.forEach(System.out::println);
+            playListFiles.addAll(listOfFiles);
+            playListFiles.forEach(System.out::println);
             playList.setItems(playListFiles);
         }
     }

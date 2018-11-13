@@ -27,10 +27,12 @@ import java.net.URISyntaxException;
 public class AboutDialog {
 
     private final Stage stage = new Stage();
-
     private final Button closeButton = new Button();
-
     private final Hyperlink link = new Hyperlink();
+    private final VBox stageBox = new VBox(10);
+    private final HBox closeBox = new HBox();
+    private final Label name = new Label(PropertiesUtils.readDetails().get("name"));
+    private final Label version = new Label(PropertiesUtils.readDetails().get("version"));
 
     public AboutDialog(Stage primaryStage) {
         prepareStage(primaryStage);
@@ -54,16 +56,12 @@ public class AboutDialog {
     }
 
     private Scene prepareScene() {
-        VBox stageBox = new VBox(10);
         stageBox.setId("about");
         stageBox.setPadding(new Insets(0, 0, 0, 10));
-        HBox closeBox = new HBox();
         closeButton.setId("close");
         closeBox.setAlignment(Pos.TOP_RIGHT);
         closeBox.getChildren().add(closeButton);
-        Label name = new Label(PropertiesUtils.readDetails().get("name"));
         name.setId("header1");
-        Label version = new Label(PropertiesUtils.readDetails().get("version"));
         version.setId("version");
         link.setText("点击链接联系我们");
         link.setId("link");

@@ -81,7 +81,7 @@ public class MediaPlayerController implements Initializable {
     @FXML
     private BorderPane root; // 边境围栏
 
-    private Stage stage; // 舞台
+    private Stage stage = new Stage(); // 舞台
     private ObservableList playListFiles = FXCollections.observableArrayList();
     private ObjectProperty<Path> selectedMedia = new SimpleObjectProperty<>(); // 已选择的媒体文件
     private ObjectProperty<Path> deletedMedia = new SimpleObjectProperty<>(); // 已删除的媒体文件
@@ -107,7 +107,6 @@ public class MediaPlayerController implements Initializable {
                 // don't do anything in these states
                 return;
             }
-
             if (status == MediaPlayer.Status.PAUSED || status == MediaPlayer.Status.READY || status == MediaPlayer.Status.STOPPED) {
                 // rewind the movie if we're sitting at the end
                 if (atEndOfMedia) {
@@ -146,7 +145,6 @@ public class MediaPlayerController implements Initializable {
      */
     @FXML
     public void openPlaylist(ActionEvent event) {
-        Stage stage = new Stage();
         stage.setScene(playlistScene);
         stage.initOwner(((Button) event.getSource()).getScene().getWindow());
         stage.show();
@@ -177,19 +175,16 @@ public class MediaPlayerController implements Initializable {
      */
     @FXML
     public void openFile(ActionEvent event) {
-        ObservableList<Path> tempList = FXCollections.observableArrayList();
         try {
             FileChooser chooser = new FileChooser();
             chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Files", PropertiesUtils.readFormats()));
             Path newFile;
             newFile = chooser.showOpenDialog(((MenuItem) event.getSource()).getParentPopup().getScene().getWindow()).toPath();
-            if (newFile != null) {
-                if (!playListFiles.contains(newFile)) {
-                    playListFiles.add(newFile);
-                    playVideo(newFile.toString());
-                } else {
-                    playVideo(newFile.toString());
-                }
+            if (!playListFiles.contains(newFile)) {
+                playListFiles.add(newFile);
+                playVideo(newFile.toString());
+            } else {
+                playVideo(newFile.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -256,11 +251,9 @@ public class MediaPlayerController implements Initializable {
     }
 
     private void bindMediaPlayerControls(final MediaPlayer mediaPlayer) {
-
         mediaPlayer.currentTimeProperty().addListener((ov) -> {
             updateValues(mediaPlayer);
         });
-
         mediaPlayer.setOnPlaying(() -> {
             if (stopRequested) {
                 mediaPlayer.pause();
@@ -269,14 +262,11 @@ public class MediaPlayerController implements Initializable {
                 play.setId("pause");
             }
         });
-
         mediaPlayer.setOnPaused(() -> play.setId("play"));
-
         mediaPlayer.setOnReady(() -> {
             duration = mediaPlayer.getMedia().getDuration();
             updateValues(mediaPlayer);
         });
-
         timeSlider.sliderValueProperty().addListener((ov) -> {
             if (timeSlider.isTheValueChanging()) {
                 if (null != mediaPlayer)
@@ -288,7 +278,6 @@ public class MediaPlayerController implements Initializable {
                     timeSlider.sliderValueProperty().setValue(0);
             }
         });
-
         volumeSlider.sliderValueProperty().addListener((ov) -> {
             if (null != mediaPlayer) {
                 // multiply duration by percentage calculated by
@@ -334,15 +323,15 @@ public class MediaPlayerController implements Initializable {
         this.stage = stage;
     }
 
-    public DoubleProperty timerSliderWidthProperty() {
+    private DoubleProperty timerSliderWidthProperty() {
         return timeSlider.prefWidthProperty();
     }
 
-    public DoubleProperty mediaViewHeightProperty() {
+    private DoubleProperty mediaViewHeightProperty() {
         return mediaView.fitHeightProperty();
     }
 
-    public DoubleProperty mediaViewWidthProperty() {
+    private DoubleProperty mediaViewWidthProperty() {
         return mediaView.fitWidthProperty();
     }
 
@@ -357,7 +346,6 @@ public class MediaPlayerController implements Initializable {
     public void applyDragAndDropFeatures(Scene scene) {
         try {
             applyControlHiding(mediaControl);
-
             scene.setOnDragOver((dragEvent) -> {
                 Dragboard db = dragEvent.getDragboard();
                 if (db.hasFiles()) {
@@ -366,15 +354,15 @@ public class MediaPlayerController implements Initializable {
                     dragEvent.consume();
                 }
             });
-
             scene.setOnDragDropped((dragEvent) -> {
                 Dragboard db = dragEvent.getDragboard();
                 if (db.hasFiles()) {
                     for (Path filePath : FileUtils.convertListFileToListPath(db.getFiles())) {
                         try {
                             if (PropertiesUtils.readFormats().contains("*" + filePath.toAbsolutePath().toString().substring(filePath.toAbsolutePath().toString().length() - 4))) {
-                                if (null != mediaView.getMediaPlayer())
+                                if (null != mediaView.getMediaPlayer()) {
                                     mediaView.getMediaPlayer().stop();
+                                }
                                 playListFiles.add(filePath);
                                 playVideo(filePath.toAbsolutePath().toString());
                             } else {
@@ -387,13 +375,11 @@ public class MediaPlayerController implements Initializable {
                     }
                 }
             });
-
             scene.addEventFilter(KeyEvent.KEY_PRESSED, (keyEvent) -> {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     ((Stage) scene.getWindow()).setFullScreen(false);
                 }
             });
-
             mediaView.addEventFilter(MouseEvent.MOUSE_PRESSED, (mouseEvent) -> {
                 if (mouseEvent.getButton().equals(
                         MouseButton.PRIMARY)) {
@@ -406,7 +392,6 @@ public class MediaPlayerController implements Initializable {
                     }
                 }
             });
-
             scene.addEventFilter(MouseEvent.MOUSE_MOVED, (mouseEvent) -> {
                 if (stage.isFullScreen()) {
                     showTempMediaControlBar();
@@ -414,7 +399,6 @@ public class MediaPlayerController implements Initializable {
                     showConstantMediaControlBar();
                 }
             });
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -422,7 +406,7 @@ public class MediaPlayerController implements Initializable {
 
     private void applyControlHiding(Node node) {
         if (node instanceof Parent) {
-            ((Parent) node).getChildrenUnmodifiable().stream().forEach(this::applyControlHiding);
+            ((Parent) node).getChildrenUnmodifiable().forEach(this::applyControlHiding);
         }
         node.setOnMouseMoved(mouseEvent -> {
             if (mouseEvent.getX() > 0) {
