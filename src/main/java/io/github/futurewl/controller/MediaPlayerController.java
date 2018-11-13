@@ -83,17 +83,17 @@ public class MediaPlayerController implements Initializable {
     @FXML
     private BorderPane root;
 
+    private Stage stage; // 舞台
     private ObservableList playListFiles = FXCollections.observableArrayList();
-    private ObjectProperty<Path> selectedMedia = new SimpleObjectProperty<>();
-    private ObjectProperty<Path> deletedMedia = new SimpleObjectProperty<>();
-    private Stage stage;
+    private ObjectProperty<Path> selectedMedia = new SimpleObjectProperty<>(); // 已选择的媒体文件
+    private ObjectProperty<Path> deletedMedia = new SimpleObjectProperty<>(); // 已删除的媒体文件
     private int previousValue;
     private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
-    private Duration duration;
-    private PlayListController playlistController;
-    private Scene playlistScene;
-    private FadeTransition ft;
+    private Duration duration; // 持续时间
+    private PlayListController playlistController; // 播放列表控制器
+    private Scene playlistScene; // 播放列表场景
+    private FadeTransition fadeTransition; // 淡出过渡
 
     /**
      * 播放
@@ -221,10 +221,10 @@ public class MediaPlayerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ft = new FadeTransition(Duration.millis(2000), mediaControl);
-        ft.setFromValue(1.0);
-        ft.setToValue(0.0);
-        ft.setCycleCount(1);
+        fadeTransition = new FadeTransition(Duration.millis(2000), mediaControl);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.setCycleCount(1);
         selectedMedia.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 playVideo(newValue.toString());
@@ -450,12 +450,12 @@ public class MediaPlayerController implements Initializable {
     private void showTempMediaControlBar() {
         menuBar.setOpacity(0);
         mediaControl.setOpacity(1.0);
-        ft.play();
+        fadeTransition.play();
     }
 
     private void showConstantMediaControlBar() {
         menuBar.setOpacity(1);
-        ft.stop();
+        fadeTransition.stop();
         mediaControl.setOpacity(1.0);
     }
 
