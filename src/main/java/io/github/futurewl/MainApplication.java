@@ -42,6 +42,7 @@ public class MainApplication extends Application implements CommandLineRunner {
         controller.bindSize(scene);
         controller.setStage(primaryStage);
         controller.applyDragAndDropFeatures(scene); // 应用拖放功能
+        primaryStage.setTitle("简易媒体播放器");
         primaryStage.setOnCloseRequest(event -> System.exit(0));// 关闭界面后关闭子线程
         primaryStage.show();
     }
