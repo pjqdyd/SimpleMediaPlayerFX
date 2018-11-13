@@ -91,12 +91,17 @@ public class MediaPlayerController implements Initializable {
     private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
     private Duration duration;
-    private PlaylistController playlistController;
+    private PlayListController playlistController;
     private Scene playlistScene;
     private FadeTransition ft;
 
+    /**
+     * 播放
+     *
+     * @param event
+     */
     @FXML
-    void playAction(ActionEvent event) {
+    public void playAction(ActionEvent event) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
         if (null != mediaPlayer) {
             MediaPlayer.Status status = mediaPlayer.getStatus();
@@ -105,8 +110,7 @@ public class MediaPlayerController implements Initializable {
                 return;
             }
 
-            if (status == MediaPlayer.Status.PAUSED || status == MediaPlayer.Status.READY
-                    || status == MediaPlayer.Status.STOPPED) {
+            if (status == MediaPlayer.Status.PAUSED || status == MediaPlayer.Status.READY || status == MediaPlayer.Status.STOPPED) {
                 // rewind the movie if we're sitting at the end
                 if (atEndOfMedia) {
                     mediaPlayer.seek(mediaPlayer.getStartTime());
@@ -121,8 +125,13 @@ public class MediaPlayerController implements Initializable {
         }
     }
 
+    /**
+     * 停止
+     *
+     * @param event
+     */
     @FXML
-    void stopAction(ActionEvent event) {
+    public void stopAction(ActionEvent event) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
         if (null != mediaPlayer) {
             mediaPlayer.stop();
@@ -132,8 +141,13 @@ public class MediaPlayerController implements Initializable {
         }
     }
 
+    /**
+     * 打开播放列表
+     *
+     * @param event
+     */
     @FXML
-    void openPlaylist(ActionEvent event) {
+    public void openPlaylist(ActionEvent event) {
         Stage stage = new Stage();
         stage.setScene(playlistScene);
         stage.initOwner(((Button) event.getSource()).getScene().getWindow());
@@ -143,8 +157,13 @@ public class MediaPlayerController implements Initializable {
         deletedMedia.bind(playlistController.deletedFile());
     }
 
+    /**
+     * 静音 取消静音
+     *
+     * @param event
+     */
     @FXML
-    void muteUnmute(ActionEvent event) {
+    public void muteUnMute(ActionEvent event) {
         if (volumeSlider.sliderValueProperty().intValue() == 0) {
             volumeSlider.sliderValueProperty().setValue(previousValue);
         } else {
@@ -153,16 +172,17 @@ public class MediaPlayerController implements Initializable {
         }
     }
 
+    /**
+     * 打开文件
+     *
+     * @param event
+     */
     @FXML
-    void openFile(ActionEvent event) {
-        ObservableList<Path> tempList = FXCollections
-                .observableArrayList();
+    public void openFile(ActionEvent event) {
+        ObservableList<Path> tempList = FXCollections.observableArrayList();
         try {
             FileChooser chooser = new FileChooser();
-            chooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Files", PropertiesUtils
-                            .readFormats()));
-
+            chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Files", PropertiesUtils.readFormats()));
             Path newFile;
             newFile = chooser.showOpenDialog(((MenuItem) event.getSource()).getParentPopup().getScene().getWindow()).toPath();
             if (newFile != null) {
@@ -178,31 +198,38 @@ public class MediaPlayerController implements Initializable {
         }
     }
 
+    /**
+     * 编辑
+     *
+     * @param event
+     */
     @FXML
-    void exitPlayer(ActionEvent event) {
+    public void exitPlayer(ActionEvent event) {
         stage.close();
     }
 
+    /**
+     * 关于
+     *
+     * @param event
+     */
     @FXML
-    void about(ActionEvent event) {
+    public void about(ActionEvent event) {
         AboutDialog aboutDialog = new AboutDialog(stage);
         aboutDialog.showAbout();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         ft = new FadeTransition(Duration.millis(2000), mediaControl);
         ft.setFromValue(1.0);
         ft.setToValue(0.0);
         ft.setCycleCount(1);
-
         selectedMedia.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 playVideo(newValue.toString());
             }
         });
-
         deletedMedia.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 stopAction(null);
@@ -210,23 +237,21 @@ public class MediaPlayerController implements Initializable {
         });
     }
 
-    private void playVideo(String MEDIA_URL) {
+    private void playVideo(String mediaUrl) {
         try {
-            String MEDIA_URL_FOR_MEDIA = URLEncoder.encode(MEDIA_URL, "UTF-8");
-            MEDIA_URL_FOR_MEDIA = "file:/"
-                    + (MEDIA_URL_FOR_MEDIA).replace("\\", "/").replace("+", "%20");
-            Media media = new Media(MEDIA_URL_FOR_MEDIA);
+            String mediaUrlForMedia = URLEncoder.encode(mediaUrl, "UTF-8");
+            mediaUrlForMedia = "file:/" + (mediaUrlForMedia).replace("\\", "/").replace("+", "%20");
+            Media media = new Media(mediaUrlForMedia);
             // create media player
             checkAndStopMediaPlayer();
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
             bindMediaPlayerControls(mediaPlayer);
             mediaPlayer.setAutoPlay(true);
-            ((Stage) mediaView.getScene().getWindow()).setTitle(Paths.get(MEDIA_URL).getFileName().toString());
+            ((Stage) mediaView.getScene().getWindow()).setTitle(Paths.get(mediaUrl).getFileName().toString());
             mediaPlayer.play();
             mediaView.setPreserveRatio(false);
             mediaView.autosize();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -247,9 +272,7 @@ public class MediaPlayerController implements Initializable {
             }
         });
 
-        mediaPlayer.setOnPaused(() -> {
-            play.setId("play");
-        });
+        mediaPlayer.setOnPaused(() -> play.setId("play"));
 
         mediaPlayer.setOnReady(() -> {
             duration = mediaPlayer.getMedia().getDuration();
@@ -283,7 +306,6 @@ public class MediaPlayerController implements Initializable {
                 volumeSlider.sliderValueProperty().setValue(0);
             }
         });
-
         onFullScreenHideControl((Stage) mediaView.getScene().getWindow());
     }
 
@@ -293,19 +315,11 @@ public class MediaPlayerController implements Initializable {
                 Duration currentTime = mediaPlayer.getCurrentTime();
                 playTime.setText(" " + DateTimeUtil.formatTime(currentTime, duration));
                 timeSlider.setDisable(duration.isUnknown());
-                if (!timeSlider.isDisabled()
-                        && duration.greaterThan(Duration.ZERO)
-                        && !timeSlider.isTheValueChanging()) {
-                    timeSlider
-                            .sliderValueProperty()
-                            .setValue(
-                                    currentTime.divide(duration.toMillis()).toMillis() * 100.0);
+                if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isTheValueChanging()) {
+                    timeSlider.sliderValueProperty().setValue(currentTime.divide(duration.toMillis()).toMillis() * 100.0);
                 }
                 if (!volumeSlider.isTheValueChanging()) {
-                    volumeSlider.sliderValueProperty()
-                            .setValue(
-                                    (int) Math.round(mediaPlayer
-                                            .getVolume() * 100));
+                    volumeSlider.sliderValueProperty().setValue((int) Math.round(mediaPlayer.getVolume() * 100));
                 }
             });
         }
@@ -334,7 +348,7 @@ public class MediaPlayerController implements Initializable {
         return mediaView.fitWidthProperty();
     }
 
-    public void injectPlayListController(PlaylistController playlistController) {
+    public void injectPlayListController(PlayListController playlistController) {
         this.playlistController = playlistController;
     }
 

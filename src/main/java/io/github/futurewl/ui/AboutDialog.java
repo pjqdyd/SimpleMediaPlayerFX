@@ -26,9 +26,9 @@ import java.net.URISyntaxException;
  */
 public class AboutDialog {
 
-    final Stage stage = new Stage();
-    final Button closeButton = new Button();
-    final Hyperlink link = new Hyperlink();
+    private final Stage stage = new Stage();
+    private final Button closeButton = new Button();
+    private final Hyperlink link = new Hyperlink();
 
     public AboutDialog(Stage primaryStage) {
         prepareStage(primaryStage);

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0"
       prefWidth="211.0" stylesheets="@../style/MediaPlayer.css" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.futurewl.controller.PlaylistController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.futurewl.controller.PlayListController">
     <children>
         <ListView fx:id="playList" prefHeight="233.0" prefWidth="211.0" VBox.vgrow="ALWAYS"/>
         <HBox alignment="CENTER" prefHeight="54.0" prefWidth="211.0">

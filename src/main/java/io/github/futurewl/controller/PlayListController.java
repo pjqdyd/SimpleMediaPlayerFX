@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * @version 1.0
  */
 @Controller
-public class PlaylistController implements Initializable {
+public class PlayListController implements Initializable {
 
     @FXML
     private Button add;
@@ -54,12 +54,12 @@ public class PlaylistController implements Initializable {
     }
 
     @FXML
-    void add(ActionEvent event) {
+    public void add(ActionEvent event) {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Files",
                         PropertiesUtils.readFormats()));
-        List<Path> listOfFiles = new ArrayList<Path>();
+        List<Path> listOfFiles;
         listOfFiles = FileUtils.convertListFileToListPath(chooser.showOpenMultipleDialog(((Button) event.getSource()).getScene().getWindow()));
         if (listOfFiles != null) {
             listOfFiles.stream().forEach(System.out::println);
@@ -70,7 +70,7 @@ public class PlaylistController implements Initializable {
     }
 
     @FXML
-    void delete(ActionEvent event) {
+    public void delete(ActionEvent event) {
         if (playList.getSelectionModel().getSelectedItem() != null) {
             if (null != playListFiles || !playListFiles.isEmpty()) {
                 deletedMedia.setValue((Path) playList.getSelectionModel().getSelectedItem());

@@ -10,6 +10,7 @@ import java.util.*;
  * @version 1.0
  */
 public class PropertiesUtils {
+
     public static Map<String, String> readDetails() {
         Map<String, String> map = new HashMap<>();
         try {
@@ -37,4 +38,5 @@ public class PropertiesUtils {
         }
         return formats;
     }
+
 }

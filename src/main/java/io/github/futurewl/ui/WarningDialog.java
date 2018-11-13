@@ -16,6 +16,7 @@ import javafx.stage.StageStyle;
  * @version 1.0
  */
 public class WarningDialog {
+
     private final Stage dialog = new Stage(StageStyle.TRANSPARENT);
 
     public WarningDialog(final Stage primaryStage) {

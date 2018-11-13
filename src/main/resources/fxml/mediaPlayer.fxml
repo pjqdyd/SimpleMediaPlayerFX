@@ -54,7 +54,7 @@
                     </HBox.margin>
                 </Label>
                 <Button id="playlist" fx:id="playlist" mnemonicParsing="false" onAction="#openPlaylist"/>
-                <ToggleButton id="volume" fx:id="volume" mnemonicParsing="false" onAction="#muteUnmute">
+                <ToggleButton id="volume" fx:id="volume" mnemonicParsing="false" onAction="#muteUnMute">
                     <toggleGroup>
                         <ToggleGroup fx:id="group"/>
                     </toggleGroup>
