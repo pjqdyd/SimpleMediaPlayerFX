@@ -64,7 +64,7 @@ public class AboutDialog {
         Scene scene = new Scene(stageBox, 400, 150);
         scene.getStylesheets().add(
                 getClass().getResource(
-                        "/io/github/futurewl/style/MediaPlayer.css").toExternalForm());
+                        "/style/MediaPlayer.css").toExternalForm());
         return scene;
     }
 

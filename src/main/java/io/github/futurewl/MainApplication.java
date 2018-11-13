@@ -30,28 +30,20 @@ public class MainApplication extends Application implements CommandLineRunner {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/io/github/futurewl/fxml/mediaplayer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mediaPlayer.fxml")); // 加载 媒体播放器
         BorderPane pane = loader.load();
         Scene scene = new Scene(pane, 650, 400);
         primaryStage.setScene(scene);
         MediaPlayerController controller = loader.getController();
-        FXMLLoader playListLoader = new FXMLLoader(getClass().getResource("/io/github/futurewl/fxml/playlist.fxml"));
+        FXMLLoader playListLoader = new FXMLLoader(getClass().getResource("/fxml/playList.fxml")); // 加载 播放列表
         playListLoader.load();
         controller.injectPlayListController(playListLoader.getController());
         controller.injectPlayListRoot(playListLoader.getRoot());
-        bindSize(controller, scene);
+        controller.bindSize(scene);
         controller.setStage(primaryStage);
+        controller.applyDragAndDropFeatures(scene); // 应用拖放功能
         primaryStage.setOnCloseRequest(event -> System.exit(0));// 关闭界面后关闭子线程
         primaryStage.show();
-        controller.applyDragAndDropFeatures(scene);
     }
-
-
-    private void bindSize(MediaPlayerController controller, Scene scene) {
-        controller.timerSliderWidthProperty().bind(scene.widthProperty().subtract(500));
-        controller.mediaViewWidthProperty().bind(scene.widthProperty());
-        controller.mediaViewHeightProperty().bind(scene.heightProperty().subtract(70));
-    }
-
 
 }

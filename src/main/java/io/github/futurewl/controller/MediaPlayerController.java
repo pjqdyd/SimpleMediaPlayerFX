@@ -444,4 +444,10 @@ public class MediaPlayerController implements Initializable {
         ft.stop();
         mediaControl.setOpacity(1.0);
     }
+
+    public void bindSize(Scene scene) {
+        this.timerSliderWidthProperty().bind(scene.widthProperty().subtract(500));
+        this.mediaViewWidthProperty().bind(scene.widthProperty());
+        this.mediaViewHeightProperty().bind(scene.heightProperty().subtract(70));
+    }
 }

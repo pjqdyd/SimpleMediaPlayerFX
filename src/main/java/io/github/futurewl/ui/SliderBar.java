@@ -26,7 +26,7 @@ public class SliderBar extends StackPane {
 
     public SliderBar() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/io/github/futurewl/fxml/sliderbar.fxml"));
+                "/fxml/sliderbar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -35,7 +35,7 @@ public class SliderBar extends StackPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        getStylesheets().add(getClass().getResource("/io/github/futurewl/style/sliderbar.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("/style/sliderbar.css").toExternalForm());
         bindValues();
     }
 
