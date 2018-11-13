@@ -81,7 +81,7 @@ public class MediaPlayerController implements Initializable {
     @FXML
     private BorderPane root; // 边境围栏
 
-    private Stage stage = new Stage(); // 舞台
+    private Stage stage; // 舞台
     private ObservableList playListFiles = FXCollections.observableArrayList();
     private ObjectProperty<Path> selectedMedia = new SimpleObjectProperty<>(); // 已选择的媒体文件
     private ObjectProperty<Path> deletedMedia = new SimpleObjectProperty<>(); // 已删除的媒体文件
@@ -145,6 +145,7 @@ public class MediaPlayerController implements Initializable {
      */
     @FXML
     public void openPlaylist(ActionEvent event) {
+        Stage stage = new Stage();
         stage.setScene(playlistScene);
         stage.initOwner(((Button) event.getSource()).getScene().getWindow());
         stage.show();
