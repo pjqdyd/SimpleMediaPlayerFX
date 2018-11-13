@@ -1,4 +1,4 @@
-package io.github.futurewl.ui;
+package io.github.futurewl.ui.bar;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 

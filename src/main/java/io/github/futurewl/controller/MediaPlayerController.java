@@ -1,8 +1,8 @@
 package io.github.futurewl.controller;
 
-import io.github.futurewl.ui.AboutDialog;
-import io.github.futurewl.ui.SliderBar;
-import io.github.futurewl.ui.WarningDialog;
+import io.github.futurewl.ui.bar.SliderBar;
+import io.github.futurewl.ui.dialog.AboutDialog;
+import io.github.futurewl.ui.dialog.WarningDialog;
 import io.github.futurewl.util.DateTimeUtil;
 import io.github.futurewl.util.FileUtils;
 import io.github.futurewl.util.PropertiesUtils;
@@ -30,7 +30,8 @@ import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.net.URLEncoder;
@@ -44,7 +45,7 @@ import java.util.ResourceBundle;
  * @author weilai create by 2018/11/13:2:13 PM
  * @version 1.0
  */
-@Controller
+@Component
 public class MediaPlayerController implements Initializable {
 
     @FXML
@@ -92,6 +93,7 @@ public class MediaPlayerController implements Initializable {
     private PlayListController playlistController; // 播放列表控制器
     private Scene playlistScene; // 播放列表场景
     private FadeTransition fadeTransition; // 淡出过渡
+    private AboutDialog aboutDialog = new AboutDialog();// 关于对话框
 
     /**
      * 播放
@@ -209,8 +211,9 @@ public class MediaPlayerController implements Initializable {
      */
     @FXML
     public void about(ActionEvent event) {
-        AboutDialog aboutDialog = new AboutDialog(stage);
-        aboutDialog.showAbout();
+        aboutDialog.create();
+        aboutDialog.setOwner(stage);
+        aboutDialog.show();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package io.github.futurewl.ui;
+package io.github.futurewl.ui.dialog;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
  * @author weilai create by 2018/11/13:2:13 PM
  * @version 1.0
  */
-public class WarningDialog {
+public class WarningDialog extends BaseDialog {
 
     private final Stage dialog = new Stage(StageStyle.TRANSPARENT);
     private final VBox box = new VBox(10);

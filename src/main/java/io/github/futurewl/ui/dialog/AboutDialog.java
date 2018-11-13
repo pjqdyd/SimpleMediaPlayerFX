@@ -1,4 +1,4 @@
-package io.github.futurewl.ui;
+package io.github.futurewl.ui.dialog;
 
 import io.github.futurewl.util.PropertiesUtils;
 import javafx.geometry.Insets;
@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,9 +25,9 @@ import java.net.URISyntaxException;
  * @author weilai create by 2018/11/13:2:13 PM
  * @version 1.0
  */
-public class AboutDialog {
+public class AboutDialog extends BaseDialog {
 
-    private final Stage stage = new Stage();
+    private Stage owner;
     private final Button closeButton = new Button();
     private final Hyperlink link = new Hyperlink();
     private final VBox stageBox = new VBox(10);
@@ -34,45 +35,56 @@ public class AboutDialog {
     private final Label name = new Label(PropertiesUtils.readDetails().get("name"));
     private final Label version = new Label(PropertiesUtils.readDetails().get("version"));
 
-    public AboutDialog(Stage primaryStage) {
-        prepareStage(primaryStage);
-        addListeners();
-        stage.setScene(prepareScene());
+    public void create() {
+        dialog = new Stage();
+        prepareStage(); // 准备舞台
+        addListeners(); // 添加监听器
+        Scene scene = prepareScene(); // 准备场景
+        dialog.setScene(scene); // 设置场景
     }
 
-    public void showAbout() {
-        stage.show();
-    }
 
     /**
      * 准备舞台
-     *
-     * @param primaryStage
      */
-    private void prepareStage(Stage primaryStage) {
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(primaryStage);
+    private void prepareStage() {
+        dialog.initStyle(StageStyle.TRANSPARENT); // 初始化风格
+        dialog.initModality(Modality.WINDOW_MODAL); // 初始化 模态
     }
 
+    /**
+     * 准备场景
+     *
+     * @return
+     */
     private Scene prepareScene() {
         stageBox.setId("about");
         stageBox.setPadding(new Insets(0, 0, 0, 10));
+
         closeButton.setId("close");
+
         closeBox.setAlignment(Pos.TOP_RIGHT);
         closeBox.getChildren().add(closeButton);
+
         name.setId("header1");
         version.setId("version");
+
         link.setText("点击链接联系我们");
         link.setId("link");
+
         stageBox.getChildren().addAll(closeBox, name, version, link);
+
         Scene scene = new Scene(stageBox, 400, 150);
         scene.getStylesheets().add(getClass().getResource("/style/media_player.css").toExternalForm());
+
         return scene;
     }
 
+    /**
+     * 添加监听器
+     */
     private void addListeners() {
-        closeButton.setOnAction((e) -> stage.close());
+        closeButton.setOnAction((e) -> dialog.close());
         link.setOnAction((e) -> {
             try {
                 Desktop.getDesktop().browse(new URI(PropertiesUtils.readDetails().get("link")));
@@ -82,4 +94,15 @@ public class AboutDialog {
         });
     }
 
+    public void show() {
+        dialog.show();
+    }
+
+    public Stage getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Stage owner) {
+        this.owner = owner;
+    }
 }
