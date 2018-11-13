@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.StackPane?>
+
 <fx:root fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
          prefHeight="20.0" prefWidth="241.0" type="StackPane" xmlns="http://javafx.com/javafx/8"
          xmlns:fx="http://javafx.com/fxml/1">
