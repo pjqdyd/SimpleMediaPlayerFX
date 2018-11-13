@@ -1,4 +1,4 @@
-package com.ita.ui;
+package io.github.futurewl.ui;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
@@ -10,7 +10,10 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
 /**
- * Created by itachi on 14/2/15.
+ * 功能描述：滑块栏
+ *
+ * @author weilai create by 2018/11/13:2:13 PM
+ * @version 1.0
  */
 public class SliderBar extends StackPane {
 
@@ -23,7 +26,7 @@ public class SliderBar extends StackPane {
 
     public SliderBar() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/com/ita/fxml/sliderbar.fxml"));
+                "/io/github/futurewl/fxml/sliderbar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -32,11 +35,11 @@ public class SliderBar extends StackPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        getStylesheets().add(getClass().getResource("/com/ita/style/sliderbar.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("/io/github/futurewl/style/sliderbar.css").toExternalForm());
         bindValues();
     }
 
-    private void bindValues(){
+    private void bindValues() {
         progressBar.prefWidthProperty().bind(slider.widthProperty());
         progressBar.progressProperty().bind(slider.valueProperty().divide(100));
     }

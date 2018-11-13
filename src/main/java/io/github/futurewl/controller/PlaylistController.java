@@ -1,7 +1,7 @@
-package com.ita.controller;
+package io.github.futurewl.controller;
 
-import com.ita.util.FileUtils;
-import com.ita.util.PropertiesUtils;
+import io.github.futurewl.util.FileUtils;
+import io.github.futurewl.util.PropertiesUtils;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
+import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.nio.file.Path;
@@ -19,6 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * 功能描述：播放列表控制器
+ *
+ * @author weilai create by 2018/11/13:2:13 PM
+ * @version 1.0
+ */
+@Controller
 public class PlaylistController implements Initializable {
 
     @FXML
@@ -30,7 +38,7 @@ public class PlaylistController implements Initializable {
     @FXML
     private ListView playList;
 
-    private ObservableList playListFiles =FXCollections.observableArrayList();
+    private ObservableList playListFiles = FXCollections.observableArrayList();
     private ObjectProperty<Path> selectedMedia = new SimpleObjectProperty<>();
     private ObjectProperty<Path> deletedMedia = new SimpleObjectProperty<>();
 
@@ -52,7 +60,7 @@ public class PlaylistController implements Initializable {
                 new FileChooser.ExtensionFilter("Files",
                         PropertiesUtils.readFormats()));
         List<Path> listOfFiles = new ArrayList<Path>();
-        listOfFiles = FileUtils.convertListFiletoListPath(chooser.showOpenMultipleDialog(((Button) event.getSource()).getScene().getWindow()));
+        listOfFiles = FileUtils.convertListFileToListPath(chooser.showOpenMultipleDialog(((Button) event.getSource()).getScene().getWindow()));
         if (listOfFiles != null) {
             listOfFiles.stream().forEach(System.out::println);
             listOfFiles.stream().forEach(playListFiles::add);
@@ -64,7 +72,7 @@ public class PlaylistController implements Initializable {
     @FXML
     void delete(ActionEvent event) {
         if (playList.getSelectionModel().getSelectedItem() != null) {
-            if(null!=playListFiles || !playListFiles.isEmpty()) {
+            if (null != playListFiles || !playListFiles.isEmpty()) {
                 deletedMedia.setValue((Path) playList.getSelectionModel().getSelectedItem());
                 playListFiles.remove(playList.getSelectionModel().getSelectedItem());
                 playList.setItems(playListFiles);
@@ -72,11 +80,11 @@ public class PlaylistController implements Initializable {
         }
     }
 
-    public ObservableList listViewItems(){
-       return playListFiles;
+    public ObservableList listViewItems() {
+        return playListFiles;
     }
 
-    public ObjectProperty<Path> selectedFile(){
+    public ObjectProperty<Path> selectedFile() {
         return selectedMedia;
     }
 

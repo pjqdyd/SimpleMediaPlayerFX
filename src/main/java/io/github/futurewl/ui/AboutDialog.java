@@ -1,6 +1,6 @@
-package com.ita.ui;
+package io.github.futurewl.ui;
 
-import com.ita.util.PropertiesUtils;
+import io.github.futurewl.util.PropertiesUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,12 +18,19 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * 功能描述：关于对话框
+ *
+ * @author weilai create by 2018/11/13:2:13 PM
+ * @version 1.0
+ */
 public class AboutDialog {
+
     final Stage stage = new Stage();
     final Button closeButton = new Button();
     final Hyperlink link = new Hyperlink();
 
-    public AboutDialog(Stage primaryStage){
+    public AboutDialog(Stage primaryStage) {
         prepareStage(primaryStage);
         addListeners();
         stage.setScene(prepareScene());
@@ -57,7 +64,7 @@ public class AboutDialog {
         Scene scene = new Scene(stageBox, 400, 150);
         scene.getStylesheets().add(
                 getClass().getResource(
-                        "/com/ita/style/MediaPlayer.css").toExternalForm());
+                        "/io/github/futurewl/style/MediaPlayer.css").toExternalForm());
         return scene;
     }
 

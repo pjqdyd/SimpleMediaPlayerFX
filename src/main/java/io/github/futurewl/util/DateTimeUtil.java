@@ -1,7 +1,13 @@
-package com.ita.util;
+package io.github.futurewl.util;
 
 import javafx.util.Duration;
 
+/**
+ * 功能描述：日期时间工具类
+ *
+ * @author weilai create by 2018/11/13:2:13 PM
+ * @version 1.0
+ */
 public final class DateTimeUtil {
 
     public static String formatTime(Duration elapsed, Duration duration) {

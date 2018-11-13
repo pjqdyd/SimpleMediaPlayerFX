@@ -1,11 +1,11 @@
-package com.ita.controller;
+package io.github.futurewl.controller;
 
-import com.ita.ui.AboutDialog;
-import com.ita.ui.SliderBar;
-import com.ita.ui.WarningDialog;
-import com.ita.util.DateTimeUtil;
-import com.ita.util.FileUtils;
-import com.ita.util.PropertiesUtils;
+import io.github.futurewl.ui.AboutDialog;
+import io.github.futurewl.ui.SliderBar;
+import io.github.futurewl.ui.WarningDialog;
+import io.github.futurewl.util.DateTimeUtil;
+import io.github.futurewl.util.FileUtils;
+import io.github.futurewl.util.PropertiesUtils;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -30,6 +30,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.net.URLEncoder;
@@ -37,6 +38,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
+/**
+ * 功能描述：媒体播放器控制器
+ *
+ * @author weilai create by 2018/11/13:2:13 PM
+ * @version 1.0
+ */
+@Controller
 public class MediaPlayerController implements Initializable {
 
     @FXML
@@ -75,7 +83,7 @@ public class MediaPlayerController implements Initializable {
     @FXML
     private BorderPane root;
 
-    private ObservableList playListFiles =FXCollections.observableArrayList();
+    private ObservableList playListFiles = FXCollections.observableArrayList();
     private ObjectProperty<Path> selectedMedia = new SimpleObjectProperty<>();
     private ObjectProperty<Path> deletedMedia = new SimpleObjectProperty<>();
     private Stage stage;
@@ -90,7 +98,7 @@ public class MediaPlayerController implements Initializable {
     @FXML
     void playAction(ActionEvent event) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
-        if(null != mediaPlayer) {
+        if (null != mediaPlayer) {
             MediaPlayer.Status status = mediaPlayer.getStatus();
             if (status == MediaPlayer.Status.UNKNOWN || status == MediaPlayer.Status.HALTED) {
                 // don't do anything in these states
@@ -116,7 +124,7 @@ public class MediaPlayerController implements Initializable {
     @FXML
     void stopAction(ActionEvent event) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
-        if(null != mediaPlayer) {
+        if (null != mediaPlayer) {
             mediaPlayer.stop();
             play.setId("play");
         } else {
@@ -137,7 +145,7 @@ public class MediaPlayerController implements Initializable {
 
     @FXML
     void muteUnmute(ActionEvent event) {
-        if(volumeSlider.sliderValueProperty().intValue() == 0){
+        if (volumeSlider.sliderValueProperty().intValue() == 0) {
             volumeSlider.sliderValueProperty().setValue(previousValue);
         } else {
             previousValue = volumeSlider.sliderValueProperty().intValue();
@@ -150,24 +158,24 @@ public class MediaPlayerController implements Initializable {
         ObservableList<Path> tempList = FXCollections
                 .observableArrayList();
         try {
-			FileChooser chooser = new FileChooser();
-			chooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter("Files", PropertiesUtils
-							.readFormats()));
+            FileChooser chooser = new FileChooser();
+            chooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Files", PropertiesUtils
+                            .readFormats()));
 
-			Path newFile;
+            Path newFile;
             newFile = chooser.showOpenDialog(((MenuItem) event.getSource()).getParentPopup().getScene().getWindow()).toPath();
-			if (newFile != null) {
-                if(!playListFiles.contains(newFile)) {
+            if (newFile != null) {
+                if (!playListFiles.contains(newFile)) {
                     playListFiles.add(newFile);
                     playVideo(newFile.toString());
                 } else {
                     playVideo(newFile.toString());
                 }
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -190,13 +198,13 @@ public class MediaPlayerController implements Initializable {
         ft.setCycleCount(1);
 
         selectedMedia.addListener((observable, oldValue, newValue) -> {
-            if(newValue!=null){
+            if (newValue != null) {
                 playVideo(newValue.toString());
             }
         });
 
         deletedMedia.addListener((observable, oldValue, newValue) -> {
-            if(newValue!=null){
+            if (newValue != null) {
                 stopAction(null);
             }
         });
@@ -214,7 +222,7 @@ public class MediaPlayerController implements Initializable {
             mediaView.setMediaPlayer(mediaPlayer);
             bindMediaPlayerControls(mediaPlayer);
             mediaPlayer.setAutoPlay(true);
-            ((Stage)mediaView.getScene().getWindow()).setTitle(Paths.get(MEDIA_URL).getFileName().toString());
+            ((Stage) mediaView.getScene().getWindow()).setTitle(Paths.get(MEDIA_URL).getFileName().toString());
             mediaPlayer.play();
             mediaView.setPreserveRatio(false);
             mediaView.autosize();
@@ -243,7 +251,7 @@ public class MediaPlayerController implements Initializable {
             play.setId("play");
         });
 
-        mediaPlayer.setOnReady(() ->  {
+        mediaPlayer.setOnReady(() -> {
             duration = mediaPlayer.getMedia().getDuration();
             updateValues(mediaPlayer);
         });
@@ -303,8 +311,8 @@ public class MediaPlayerController implements Initializable {
         }
     }
 
-    private void checkAndStopMediaPlayer(){
-        if(null!=mediaView.getMediaPlayer()){
+    private void checkAndStopMediaPlayer() {
+        if (null != mediaView.getMediaPlayer()) {
             stopAction(null);
             mediaView.setMediaPlayer(null);
         }
@@ -335,7 +343,7 @@ public class MediaPlayerController implements Initializable {
     }
 
     public void applyDragAndDropFeatures(Scene scene) {
-        try{
+        try {
             applyControlHiding(mediaControl);
 
             scene.setOnDragOver((dragEvent) -> {
@@ -350,16 +358,15 @@ public class MediaPlayerController implements Initializable {
             scene.setOnDragDropped((dragEvent) -> {
                 Dragboard db = dragEvent.getDragboard();
                 if (db.hasFiles()) {
-                    for (Path filePath : FileUtils.convertListFiletoListPath(db.getFiles())) {
+                    for (Path filePath : FileUtils.convertListFileToListPath(db.getFiles())) {
                         try {
-                            if(PropertiesUtils.readFormats().contains("*" + filePath.toAbsolutePath().toString().substring(filePath.toAbsolutePath().toString().length() - 4))) {
+                            if (PropertiesUtils.readFormats().contains("*" + filePath.toAbsolutePath().toString().substring(filePath.toAbsolutePath().toString().length() - 4))) {
                                 if (null != mediaView.getMediaPlayer())
                                     mediaView.getMediaPlayer().stop();
                                 playListFiles.add(filePath);
                                 playVideo(filePath.toAbsolutePath().toString());
-                            }
-                            else {
-                                WarningDialog warningDialog = new WarningDialog((Stage)scene.getWindow());
+                            } else {
+                                WarningDialog warningDialog = new WarningDialog((Stage) scene.getWindow());
                                 warningDialog.show();
                             }
                         } catch (Exception e) {
@@ -371,7 +378,7 @@ public class MediaPlayerController implements Initializable {
 
             scene.addEventFilter(KeyEvent.KEY_PRESSED, (keyEvent) -> {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    ((Stage)scene.getWindow()).setFullScreen(false);
+                    ((Stage) scene.getWindow()).setFullScreen(false);
                 }
             });
 
@@ -379,17 +386,17 @@ public class MediaPlayerController implements Initializable {
                 if (mouseEvent.getButton().equals(
                         MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
-                        if (((Stage)scene.getWindow()).isFullScreen()) {
-                            ((Stage)scene.getWindow()).setFullScreen(false);
+                        if (((Stage) scene.getWindow()).isFullScreen()) {
+                            ((Stage) scene.getWindow()).setFullScreen(false);
                         } else {
-                            ((Stage)scene.getWindow()).setFullScreen(true);
+                            ((Stage) scene.getWindow()).setFullScreen(true);
                         }
                     }
                 }
             });
 
             scene.addEventFilter(MouseEvent.MOUSE_MOVED, (mouseEvent) -> {
-                if(stage.isFullScreen()) {
+                if (stage.isFullScreen()) {
                     showTempMediaControlBar();
                 } else {
                     showConstantMediaControlBar();
@@ -402,11 +409,11 @@ public class MediaPlayerController implements Initializable {
     }
 
     private void applyControlHiding(Node node) {
-        if(node instanceof Parent) {
+        if (node instanceof Parent) {
             ((Parent) node).getChildrenUnmodifiable().stream().forEach(this::applyControlHiding);
         }
         node.setOnMouseMoved(mouseEvent -> {
-            if(mouseEvent.getX() > 0) {
+            if (mouseEvent.getX() > 0) {
                 showConstantMediaControlBar();
             }
         });
@@ -415,7 +422,7 @@ public class MediaPlayerController implements Initializable {
     private void onFullScreenHideControl(Stage stage) {
         try {
             stage.fullScreenProperty().addListener((observable, oldValue, newValue) -> {
-                if(newValue) {
+                if (newValue) {
                     showTempMediaControlBar();
                 } else {
                     showConstantMediaControlBar();
@@ -426,13 +433,13 @@ public class MediaPlayerController implements Initializable {
         }
     }
 
-    private void showTempMediaControlBar(){
+    private void showTempMediaControlBar() {
         menuBar.setOpacity(0);
         mediaControl.setOpacity(1.0);
         ft.play();
     }
 
-    private void showConstantMediaControlBar(){
+    private void showConstantMediaControlBar() {
         menuBar.setOpacity(1);
         ft.stop();
         mediaControl.setOpacity(1.0);
