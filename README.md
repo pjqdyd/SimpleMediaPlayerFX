@@ -32,5 +32,5 @@ To Build a Native Package
    在maven plugin的javafx插件的configration的mainClass中的主类写全包名
  
    2.mvn jfx:run提示springboot信息无法创建bean ... MediaPlayerController...:
-   这里是引入插件jar包版本的问题,将javafx插件的版本改为最新的8.8.3即可解决问题
+   这里可能是引入插件jar包版本的问题,将javafx插件的版本改为最新的8.8.3即可解决问题
       
