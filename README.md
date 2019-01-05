@@ -23,3 +23,13 @@ To Run
 To Build a Native Package 
 
     $ mvn jfx:native 
+    
+    
+注意:
+
+   1.mvn jfx:run提示无法找到主类:
+   在maven plugin的javafx插件的<configration>的<mainClass>中的主类写全包名
+ 
+   2.mvn jfx:run提示springboot信息无法创建bean MediaPlayerController:
+   这里是引入插件jar包版本的问题,将javafx插件的版本改为最新的8.8.3即可解决问题
+      
